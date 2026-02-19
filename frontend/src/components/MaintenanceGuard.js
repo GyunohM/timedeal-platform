@@ -9,7 +9,7 @@ const MaintenanceGuard = ({ children }) => {
     const checkServerStatus = async () => {
       try {
         // 1. 루트 경로('') 헬스 체크
-        await api.head('', {
+        await api.head('/health', {
           timeout: 3000, // 3초 타임아웃
         });
 

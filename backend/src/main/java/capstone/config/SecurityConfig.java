@@ -277,6 +277,7 @@ public class SecurityConfig {
                     "/login/**",
                     "/error",
                     "/favicon.ico",
+                    "/health",
 
                     // 공통
                     "/api/qrCode/**",
