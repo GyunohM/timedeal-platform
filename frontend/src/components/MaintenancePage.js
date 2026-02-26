@@ -14,7 +14,7 @@ const MaintenancePage = () => {
         </p>
         <div style={styles.divider}></div>
         <a
-          href="https://github.com/maenggyuno/timedeal-platform.git"
+          href="https://github.com/maenggyuno/timedeal-platform-docs/blob/main/README.md"
           target="_blank"
           rel="noopener noreferrer"
           style={styles.button}
