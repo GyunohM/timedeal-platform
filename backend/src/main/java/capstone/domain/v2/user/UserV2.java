@@ -1,13 +1,11 @@
-package capstone.domain.v2;
+package capstone.domain.v2.user;
 
-import capstone.domain.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.intellij.lang.annotations.Pattern;
 
 @Entity
 @Getter
@@ -28,12 +26,12 @@ public class UserV2 {
 
     @Enumerated(EnumType.STRING)
     @Column( nullable = false, length = 20)
-    private UserStatus status;
+    private UserV2Status status;
 
     //
-    public UserV2(String name, UserStatus status){
+    public UserV2(String name, UserV2Status status){
         this.name = name;
-        this.status = (status != null) ? status : UserStatus.ACTIVE;
+        this.status = (status != null) ? status : UserV2Status.ACTIVE;
     }
 
     public void ChangeName(String newName){

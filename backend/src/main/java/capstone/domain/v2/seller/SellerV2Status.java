@@ -5,12 +5,12 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum SellerStatus {
+public enum SellerV2Status {
 
     ACTIVE("활성"),
     DELETED("탈퇴"),
     LOCKED("정지"),
     DORMANT("휴먼");
-    
-    private final String discription;
+
+    private final String description;
 }
