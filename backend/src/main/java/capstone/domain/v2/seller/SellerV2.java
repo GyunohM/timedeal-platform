@@ -1,6 +1,7 @@
 package capstone.domain.v2.seller;
 
 
+import capstone.domain.v2.shared.MemberV2Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -51,6 +52,7 @@ public class SellerV2 {
     private String email;
 
     // @NotBlank -> null을 허용하지 않겠다는 말인데 우리는 null 허용이므로 이거 빼야함
+    //쇼셜 로그인은 password가 없으므로 널 허용
     @Size(min = 5 , max = 255)
     @Column(name = "password", nullable = true, length = 255)
     //@Pattern()
@@ -69,7 +71,7 @@ public class SellerV2 {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false, length = 20)
-    private SellerV2Role role;
+    private MemberV2Role role;
 
     @Column(name = "social_login_id", length = 255)
     private String socialLoginId;
@@ -83,7 +85,12 @@ public class SellerV2 {
 //생성자에 빌더 어노테이션을 달아둬야 서비스 계층에서 파라미터의 순서 개수에 관계없이 빌더 패턴으로 객체인스턴스를 생성가능
     //생성자는 퍼블릭이어야 외부에서 객체를 생성할 수 있음
     @Builder
-    public SellerV2(String name, String phoneNumber, LocalDate birthday, String address, String email, String password, SellerV2Status status, SellerV2Role role, String socialLoginId, String socialProvider) {
+    public SellerV2(String name, String phoneNumber, LocalDate birthday, String address, String email, String password, SellerV2Status status, MemberV2Role role, String socialLoginId, String socialProvider) {
+        //방어코드를 생성자 안에 적음, 이를 추후에 정적 팩토리 메서드 방법으로 리팩토링 예정
+        if(password != null && (socialLoginId != null || socialProvider != null)){
+            throw new IllegalArgumentException("일반 가입정보(비밀번호)와 쇼셜 가입정보는 동시에 존재할 수 없습니다.");
+        }
+
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.birthday = birthday;
@@ -91,11 +98,12 @@ public class SellerV2 {
         this.email = email;
         this.password = password;
         this.status = (status != null) ? status : SellerV2Status.ACTIVE;
-        this.role = (role != null) ? role : SellerV2Role.ROLE_USER;
+        this.role = (role != null) ? role : MemberV2Role.ROLE_SELLER;
         this.socialLoginId= socialLoginId;
         this.socialProvider= socialProvider;
     }
     //객체 내부의 필드만 가지고 행위를 할 수 있는 메소드는 서비스계층보다 도메인에 적어두면 서비스 계층이 깔끔해진다.
     //나중에 도메인에 넣을 메소드 추가 하기
+    //추후에 정적 팩토리 메서드로 구현 리팩토링 하기
 }
 
