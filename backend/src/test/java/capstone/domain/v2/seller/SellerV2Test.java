@@ -17,7 +17,7 @@ class SellerV2Test {
         //given (객체가 주어짐)
     void createLocalSellerTest() {
         String name = "균오";
-        String phoneNumber = "010-1234-5678";
+        String phoneNumber = "01012345678";
         LocalDate birthday = LocalDate.of(2021, 4, 5);
         String address = "서울시 강남구";
         String email = "test@test.com";
@@ -50,7 +50,7 @@ class SellerV2Test {
 
 
         String name = "균오";
-        String phoneNumber = "010-1234-5678";
+        String phoneNumber = "01012345678";
         LocalDate birthday = LocalDate.of(2021, 4, 5);
         String address = "서울시 강남구";
         String email = "test@test.com";
@@ -80,7 +80,7 @@ class SellerV2Test {
         org.assertj.core.api.Assertions.assertThatThrownBy(() ->
             SellerV2.builder()
                 .name("균오")
-                .phoneNumber("010-1234-5678")
+                .phoneNumber("01012345678")
                 .email("test@test.com")
                 .password("password1234")
                 .socialLoginId("naver1234")
