@@ -39,7 +39,8 @@ public class SellerV2 {
     private String name;
 
 
-    @Column(name = "phone_number", nullable = false, length = 11, unique = true)
+    @Column(name = "phone_number", nullable = false, unique = true)
+    @Size(min = 10, max = 11) //사실 domain에서는 @size 보다 @column으로 db테이블 제약을 직접 거는 것을 좋아함
     private String phoneNumber;
 
     //sql에서 date가 java에서는 Localdate임
@@ -97,8 +98,8 @@ public class SellerV2 {
         this.address = address;
         this.email = email;
         this.password = password;
-        this.status = (status != null) ? status : SellerV2Status.ACTIVE;
-        this.role = (role != null) ? role : MemberV2Role.ROLE_SELLER;
+        this.status = SellerV2Status.ACTIVE; //불필요한 null 연산을 지우고 아예 변경이 불가능하게 고정값 주입
+        this.role = MemberV2Role.ROLE_SELLER;
         this.socialLoginId= socialLoginId;
         this.socialProvider= socialProvider;
     }
