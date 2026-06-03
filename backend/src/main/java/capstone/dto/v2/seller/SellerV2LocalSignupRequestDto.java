@@ -4,6 +4,8 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +13,8 @@ import java.time.LocalDate;
 
 @Getter
 @NoArgsConstructor
+@Builder //테스트 코드에서 .builder()를 쓰려면 달아줘야 함
+@AllArgsConstructor // @Builder를 클래스에 달 때 반드시 함께 달아줘야 에러가 안남
 public class SellerV2LocalSignupRequestDto {
 
     @NotBlank(message = "이름은 필수 입력값입니다.")
