@@ -1,5 +1,6 @@
 package capstone.dto.v2.seller;
 
+import capstone.domain.v2.seller.SellerV2;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -36,7 +37,19 @@ public class SellerV2LocalSignupRequestDto {
     private String email;
 
     @NotBlank(message = "비밀번호는 필수 입력값입니다.") //로컬과 쇼셜을 구분하였고 로컬이기에 @NotBlank -> null 허용x
-    @Size(min = 5 , max = 255, message = "비밀번호는 최소 5글자 이상이어야 합니다.")
+    @Size(min = 5, max = 255, message = "비밀번호는 최소 5글자 이상이어야 합니다.")
     private String password;
+
+    //DTO -> Entity 변환 toEntity 패턴 도입 (서비스 계층에서 dto로 변환 로직을 옮김)
+    public SellerV2 toEntity(String encodedPassword) {
+        return SellerV2.builder()
+            .name(this.getName())
+            .phoneNumber(this.getPhoneNumber())
+            .birthday(this.getBirthday())
+            .address(this.getAddress())
+            .email(this.getEmail())
+            .password(encodedPassword) //원본 비번 대신 암호화된 비번 주입
+            .build();
+    }
 
 }
