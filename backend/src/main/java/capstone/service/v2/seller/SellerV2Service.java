@@ -20,7 +20,9 @@ public class SellerV2Service {
     public void signupLocalSeller(SellerV2LocalSignupRequestDto dto){
         //중복 검증 -> 이 코드는 다른 db도 찾아봐야하므로 도메인계층이 아닌 서비스계층에 넣어야함
         //도메인은 자기자신에 대한 데이터관련 메소드 구현은 가능 다만 다른 유저 데이터를 알 권한이 없음
-        if (sellerV2Repository.existsByEmail(dto.getEmail())){
+        //db에서 자동으로 변환해주지만 서비스 계층에서 이메일을 소문자로 강제변환 정규화 추가하는게 안전함 중복 검증 전에 꼭 해야함. 이후에 dto.toEntity에서도 변환해서 최종적으로 저장하는게 좋음
+        String normalizedEmail = dto.getEmail().toLowerCase();
+        if (sellerV2Repository.existsByEmail(normalizedEmail)){
             throw new IllegalArgumentException("이미 가입된 이메일 입니다.");
         }
         if (sellerV2Repository.existsByPhoneNumber(dto.getPhoneNumber())){

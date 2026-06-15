@@ -47,7 +47,7 @@ public class SellerV2LocalSignupRequestDto {
             .phoneNumber(this.getPhoneNumber())
             .birthday(this.getBirthday())
             .address(this.getAddress())
-            .email(this.getEmail())
+            .email(this.getEmail().toLowerCase()) //저장 직전 소문자로 강제 변환 정규화
             .password(encodedPassword) //원본 비번 대신 암호화된 비번 주입
             .build();
     }
