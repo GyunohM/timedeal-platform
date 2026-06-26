@@ -1,4 +1,4 @@
-package capstone.exception;
+package capstone.exception.v2;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,7 +15,7 @@ public enum ErrorCode {
 
     //판매자 회원가입 도메인 전용 에러 항목
     EMAIL_DUPLICATED(HttpStatus.CONFLICT, "이미 가입된 이메일 입니다."),
-    PHONE_NUMBER_DUFILCATED(HttpStatus.CONFLICT, "이미 등록된 전화번호 입니다.");
+    PHONE_NUMBER_DUPLICATED(HttpStatus.CONFLICT, "이미 등록된 전화번호 입니다.");
 
     private final HttpStatus httpStatus;
     private final String message;

@@ -1,12 +1,9 @@
 package capstone.dto.v2.common;
 
-import capstone.exception.ErrorCode;
+import capstone.exception.v2.ErrorCode;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import io.jsonwebtoken.security.Message;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 import java.util.List;

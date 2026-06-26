@@ -2,6 +2,8 @@ package capstone.service.v2.seller;
 
 import capstone.domain.v2.seller.SellerV2;
 import capstone.dto.v2.seller.SellerV2LocalSignupRequestDto;
+import capstone.exception.v2.ErrorCode;
+import capstone.exception.v2.RestApiException;
 import capstone.repository.v2.seller.SellerV2Repository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,11 +25,15 @@ public class SellerV2Service {
         //db에서 자동으로 변환해주지만 서비스 계층에서 이메일을 소문자로 강제변환 정규화 추가하는게 안전함 중복 검증 전에 꼭 해야함. 이후에 dto.toEntity에서도 변환해서 최종적으로 저장하는게 좋음
         String normalizedEmail = dto.getEmail().toLowerCase();
         if (sellerV2Repository.existsByEmail(normalizedEmail)){
-            throw new IllegalArgumentException("이미 가입된 이메일 입니다.");
+            throw new RestApiException(ErrorCode.EMAIL_DUPLICATED);
         }
         if (sellerV2Repository.existsByPhoneNumber(dto.getPhoneNumber())){
-            throw new IllegalArgumentException("이미 등록된 전화번호 입니다.");
+            throw new RestApiException(ErrorCode.PHONE_NUMBER_DUPLICATED);
         }
+//        //컨트롤러에서 @Valid 어노테이션을 빼고 스택 트레이스 테스트를 위해 password만 임시로 서비스 계층에 추가
+//        if (dto.getPassword() == null || dto.getPassword().length() < 8) {
+//            throw new RestApiException(ErrorCode.BAD_REQUEST);
+//        }
         //비밀번호 단방향 암호화
         String encodedPassword = passwordEncoder.encode(dto.getPassword());
 
