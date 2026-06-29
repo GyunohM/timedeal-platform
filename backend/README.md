@@ -721,3 +721,27 @@ git switch -c [브랜치-이름]
 
 ### 6. 최신화된 메인 브랜치 내용을 내 작업 브랜치로 가져오기 (동기화) - 작업 하던 브랜치에서 재 진행
 `git merge main`
+
+
+### 브랜치 생성 후 작업 흐름 (Quick Sheet)
+1 **현재 상태 확인**: `git branch` (내가 어디 있는지 확인)
+
+2. **코드 수정**: 아까 드린 스프링 부트 테스트 코드 작성
+
+3. **변경 사항 확인**: `git status`
+
+4. **스테이징**: `git add .`
+
+5. **내 로컬에 저장**: `git commit -m "feat: UserV2 엔티티 및 레포지토리 기본 구조 완료"`
+
+6. **작업 내용 깃허브 서버에 올리기**: `git push origin feat/v2-user-entity`
+
+7.깃허브 웹사이트에 들어가서 초록색 [Create pull request] 버튼 클릭
+PR 내용을 적고, 화면에서 [Merge pull request] 버튼을 눌러 병합.
+
+8.**통합 브랜치로 이동 (이미 생성되어 있다고 가정)** : `git checkout refactor/v2-migration`
+
+9.**통합 브랜치의 서버 최신 내용 가져오기 (혹시 다른 팀원이 올렸을 수도 있으니)**: `git pull origin refactor/v2-migration`
+
+
+10.**이제 사장님(Seller) 작업을 위한 새 브랜치 만들기**: 브랜치가 처음 만드는 거라면 -b 옵션을 쓰세요. `git checkout -b feat/v2-seller-entity`
